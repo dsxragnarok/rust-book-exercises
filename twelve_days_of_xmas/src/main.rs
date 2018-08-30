@@ -26,20 +26,17 @@ fn generate_verse(day: u32) -> String {
         _ => "th"
     };
 
-    let mut index = day;
     let mut verse = String::from("On the {} day of Christmas my true love gave to me");
 
     verse = verse.replace("{}", &(day.to_string() + suffix));
     verse.push_str("\n");
 
-    for lyric in lyrics_by_day[0..day as usize].iter().rev() {
-        if index == 1 && day > 1 {
+    for (index, lyric) in lyrics_by_day[0..day as usize].iter().rev().enumerate() {
+        if day > 1 && index == (day - 1) as usize {
             verse.push_str("And ");
         }
         verse.push_str(lyric);
         verse.push_str("\n");
-
-        index -= 1;
     }
 
     return verse;
